@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Data Fetch</title>
+</head>
+<body>
+    <h2>Get Visitor Data</h2>
+    <form id="authForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <button type="submit">Fetch Data</button>
+    </form>
+
+    <pre id="response"></pre>
+
+    <script>
+        document.getElementById('authForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const basicAuth = 'Basic ' + btoa(username + ':' + password);
+
+            fetch(`http://192.168.0.134/cosec/api.svc/v2/visitor-pre-registration?action=get&user-id=100`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': basicAuth
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

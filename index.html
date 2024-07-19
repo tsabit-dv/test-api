@@ -29,7 +29,6 @@
             const basicAuth = 'Basic ' + btoa(username + ':' + password);
 
             fetch(`http://192.168.0.134/cosec/api.svc/v2/visitor-pre-registration?action=get&user-id=100`, {
-                method: 'GET',
                 headers: {
                     'Authorization': basicAuth
                 }
